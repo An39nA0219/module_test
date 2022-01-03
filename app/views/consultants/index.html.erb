@@ -2,7 +2,7 @@
 
 <ul>
 <% @consultants.each_with_index do |consultant, i| %>
-  <li><%= consultant.name%>　/　<%= @consultant_nicknames[i] %></li>
+  <li><%= link_to consultant.id, edit_consultant_path(consultant.id) %>　<%= consultant.name%>　/　<%= @consultant_nicknames[i] %></li>
 <% end%>
 </ul>
 

@@ -15,6 +15,16 @@ include NicknameModule
     redirect_to consultants_path
   end
 
+  def edit
+    @consultant = Consultant.find(params[:id])
+  end
+
+  def update
+    @consultant = Consultant.find(params[:id])
+    @consultant.update!(consultant_params)
+    redirect_to consultants_path
+  end
+
   private
 
   def consultant_params
