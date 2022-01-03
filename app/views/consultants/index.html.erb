@@ -1,8 +1,8 @@
 <h1>Consultants一覧</h1>
 
 <ul>
-<% @consultants.each do |consultant| %>
-  <li><%= consultant.name%></li>
+<% @consultants.each_with_index do |consultant, i| %>
+  <li><%= consultant.name%>　/　<%= @consultant_nicknames[i] %></li>
 <% end%>
 </ul>
 
