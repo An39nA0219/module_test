@@ -25,9 +25,24 @@ include NicknameModule
     redirect_to consultants_path
   end
 
+  def edit_email
+    @consultant = Consultant.find(params[:id])
+  end
+
+  def update_email
+    @id = params[:id]
+    @consultant = Consultant.find(params[:id])
+    @consultant.update!(consultant_email_params)
+    redirect_to consultants_path
+  end
+
   private
 
   def consultant_params
     params.require(:consultant).permit(:name, :email)
+  end
+
+  def consultant_email_params
+    params.require(:consultant).permit(:email)
   end
 end

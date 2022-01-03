@@ -1,0 +1,7 @@
+<h1>Update Consultant Email</h1>
+
+<%= form_with model: @consultant, url: consultant_email_path(@consultant, id: params[:id]),  method: :patch do |f| %>
+<%= f.label "email" %>
+<%= f.text_field :email %>
+<%= f.submit 'update' %>
+<% end %>

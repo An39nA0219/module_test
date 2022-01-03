@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :users
   resources :consultants
+  get "consultants/:id/edit_email", to: "consultants#edit_email", as: :edit_consultant_email
+  patch "consultants/:id/update_email", to: "consultants#update_email", as: :consultant_email
 end
