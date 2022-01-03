@@ -5,4 +5,19 @@ include NicknameModule
     @consultants = Consultant.all
     @consultant_nicknames = create_nickname(@consultants)
   end
+
+  def new
+    @consultant = Consultant.new
+  end
+
+  def create
+    Consultant.create!(consultant_params)
+    redirect_to consultants_path
+  end
+
+  private
+
+  def consultant_params
+    params.require(:consultant).permit(:name, :email)
+  end
 end

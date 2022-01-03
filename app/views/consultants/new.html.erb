@@ -1,0 +1,9 @@
+<h1>Create Consultant</h1>
+
+<%= form_with model: @consultant do |f| %>
+<%= f.label "name" %>
+<%= f.text_field :name %>
+<%= f.label "email" %>
+<%= f.text_field :email %>
+<%= f.submit 'create' %>
+<% end %>
