@@ -3,5 +3,7 @@
 <%= form_with model: @consultant, url: consultant_email_path(@consultant, id: params[:id]),  method: :patch do |f| %>
 <%= f.label "email" %>
 <%= f.text_field :email %>
+<%= f.label "sex" %>
+<%= f.text_field :sex %>
 <%= f.submit 'update' %>
 <% end %>
