@@ -1,26 +1,22 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
-    @user_nicknames = @users.map{|user| user.name + "っち"}
-  end
-
-  def new
-    @user = User.new
+    users = User.all.select(:id, :name).map{|user| 
+      Hash[
+        :id, user.id, 
+        :name, user.name,
+        :nickname, "#{user.name}っち"
+      ]
+    }
+    render json: users
   end
 
   def create
-    User.create!(user_params)
-    redirect_to users_path
-  end
-
-  def edit
-    @user = User.find(params[:id])
+    User.create!(user_params) ? (render json: :success) : (render json: :failed)
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.update!(user_params)
-    redirect_to users_path
+    user = User.find_by(id: params[:id])
+    user.update!(user_params) ? (render json: :success) : (render json: :failed)
   end
 
   private

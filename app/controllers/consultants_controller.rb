@@ -2,57 +2,29 @@ class ConsultantsController < ApplicationController
 include NicknameModule
 
   def index
-    @consultants = Consultant.all
-    @consultant_nicknames = create_nickname(@consultants)
-  end
-
-  def new
-    @consultant = Consultant.new
+    consultants = Consultant.all.select(:id, :name, :email).map{|consultant| 
+      Hash[
+        :id, consultant.id, 
+        :name, consultant.name,
+        :email, consultant.email,
+        :nickname, "#{consultant.name}っち"
+      ]
+    }
+    render json: consultants
   end
 
   def create
-    Consultant.create!(consultant_params)
-    redirect_to consultants_path
-  end
-
-  def edit
-    @consultant = Consultant.find(params[:id])
+    Consultant.create!(consultant_params) ? (render json: :success) : (render json: :failed)
   end
 
   def update
-    @consultant = Consultant.find(params[:id])
-    @consultant.update!(consultant_params)
-    redirect_to consultants_path
-  end
-
-  # モデルの一部のパラメータのアップデート
-  # def edit_email
-  #   @consultant = Consultant.find(params[:id])
-  # end
-
-  # def update_email
-  #   @id = params[:id]
-  #   @consultant = Consultant.find(params[:id])
-  #   @consultant.update!(consultant_email_params)
-  #   redirect_to consultants_path
-  # end
-
-  # モデルの一部＋他のパラメータのアップデート
-  def edit_email
-    @consultant = Consultant.find(params[:id])
+    consultant = Consultant.find_by(id: params[:id])
+    consultant.update!(consultant_params) ? (render json: :success) : (render json: :failed)
   end
 
   def update_email
-    @id = params[:id]
-    @consultant = Consultant.find(params[:id])
-    @consultant.update!(consultant_and_other_params)
-    if params[:consultant][:sex] == "male"
-      @consultant.name += "male" 
-    elsif params[:consultant][:sex] == "female"
-      @consultant.name += "female" 
-    end
-      @consultant.save!
-    redirect_to consultants_path
+    consultant = Consultant.find_by(id: params[:id])
+    consultant.update!(consultant_email_params) ? (render json: :success) : (render json: :failed)
   end
 
   private
